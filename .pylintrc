@@ -1,0 +1,10 @@
+[MESSAGES CONTROL]
+disable=all
+enable=E1120,C0330,C0326,R0913,R0914,R0915,R1702,C0114,C0115,C0116,W0611,W0612,W0613,W0102,W0401,W0614,C0302
+
+[DESIGN]
+max-args=10
+max-locals=30
+max-statements=60
+max-nested-blocks=4
+max-module-lines=500
