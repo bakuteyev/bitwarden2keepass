@@ -3,6 +3,8 @@
 ## Overview
 Developed by me, Anton Bakuteev, `bitwarden2keepass` is a Python package tailored for securely migrating and backing up password data from Bitwarden to KeePass. This tool is ideal for users who are transitioning between these password managers or need a dependable solution for backing up their Bitwarden vaults.
 
+Compared to other packages, this one copies all custom attributes and maintains the folder structure.
+
 Explore my other projects, including AI/ML applications, websites, and Telegram bots, at [sometechnologies.com](https://sometechnologies.com).
 
 ## Key Features
