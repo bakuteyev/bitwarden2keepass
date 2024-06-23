@@ -151,7 +151,7 @@ def update_or_create_entry(
     """
     Update or create an entry in KeePass.
 
-    Adds fields as custom attributes.
+    Adds fields as custom attributes and handles OTP.
 
     Args:
         kp (PyKeePass): The PyKeePass instance.
@@ -167,15 +167,22 @@ def update_or_create_entry(
     url_list = item.get('login', {}).get('uris', [])
     url = url_list[0].get('uri', '') if url_list else ''
     notes = item.get('notes', '') or ''
+    
+    # Extract OTP information
+    otp = item.get('login', {}).get('totp', '')
+
     # Check if an entry with the same title and username already exists
     existing_entry = kp.find_entries(
         title=title, username=username, group=entry_group, first=True)
+    
     if existing_entry:
-        # Update existing entry (you can define what should be updated)
+        # Update existing entry
         existing_entry.username = username
         existing_entry.password = password
         existing_entry.url = url
         existing_entry.notes = notes
+        if otp:
+            existing_entry.otp = otp
     else:
         # Create a new entry in KeePass
         kp.add_entry(
@@ -184,18 +191,19 @@ def update_or_create_entry(
             username=username,
             password=password,
             url=url,
-            notes=notes
+            notes=notes,
+            otp=otp
         )
 
     # Handle additional attributes
-    new_entry = kp.find_entries(
+    entry = existing_entry or kp.find_entries(
         title=title, username=username, group=entry_group, first=True)
     for attribute in item.get('fields', []):
         attr_name = attribute.get('name', '')
         attr_value = attribute.get('value', '')
         is_hidden = attribute.get('type') == 1  # Assuming type 1 is hidden
         if attr_name and attr_value:
-            new_entry.set_custom_property(
+            entry.set_custom_property(
                 attr_name, attr_value, protect=is_hidden)
 
 

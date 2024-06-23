@@ -18,7 +18,7 @@ REQUIREMENTS = [
 
 setuptools.setup(
     name="bitwarden2keepass",
-    version="0.0.1",
+    version="0.0.2",
     author="Anton Bakuteev",
     author_email="bakuteyev@gmail.com",
     description="Convert Bitwarden data to KeePass",
